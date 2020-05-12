@@ -12,11 +12,11 @@
       .container {
         margin-bottom: 20px;
       }
-      .buoy-container {
-        margin-top: 20px;
+      .chart-container {
+        margin-top: 30px;
         text-align: center;
       }
-      .buoy-container img {
+      .chart-container img {
         max-width: 100%;
       }
       .forecast-header, .buoy-header {
@@ -29,7 +29,38 @@
       .forecast-header {
         margin-top: 40px;
       }
+      .iframe-wrapper {
+        overflow: hidden;
+      }
+      .iframe-container {
+        height: 760px;
+        width: 1000px;
+        overflow: hidden;
+        margin-bottom: -320px;
+      }
+      iframe {
+        height: -webkit-fill-available;
+        width: -webkit-fill-available;
+        position: relative;
+        top: -320px;
+        right: 320px;
+        border: none;
+      }
 
+      @media(max-width: 767px) {
+        .iframe-container {
+          height: 1085px;
+          width: 800px;
+        }
+        iframe {
+          top: -350px;
+        }
+      }
+      @media(max-width: 500px) {
+        .iframe-wrapper {
+          overflow: auto;
+        }
+      }
     </style>
 
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -41,51 +72,54 @@
     <div class='container'>
       <h4 class='buoy-header'>Live Buoys</h4>
       <div class='row'>
-        <div class='col-sm-6 col-md-4 col-lg-3 buoy-container'>
+        <div class='col-sm-6 col-md-4 col-lg-3 chart-container'>
           <img src='https://tile.surfline.com/dashboard/buoyplot.cfm?buoy_id=46053&bp_timezone=-7&units=FT'>
         </div>
-        <div class='col-sm-6 col-md-4 col-lg-3 buoy-container'>
+        <div class='col-sm-6 col-md-4 col-lg-3 chart-container'>
           <img src='https://tile.surfline.com/dashboard/buoyplot.cfm?buoy_id=46054&bp_timezone=-7&units=FT'>
         </div>
-        <div class='col-sm-6 col-md-4 col-lg-3 buoy-container'>
+        <div class='col-sm-6 col-md-4 col-lg-3 chart-container'>
           <img src='https://tile.surfline.com/dashboard/buoyplot.cfm?buoy_id=46218&bp_timezone=-7&units=FT'>
         </div>
-        <div class='col-sm-6 col-md-4 col-lg-3 buoy-container'>
+        <div class='col-sm-6 col-md-4 col-lg-3 chart-container'>
           <img src='https://tile.surfline.com/dashboard/buoyplot.cfm?buoy_id=46059&bp_timezone=-7&units=FT'>
         </div>
-        <div class='col-sm-6 col-md-4 col-lg-3 buoy-container'>
+        <div class='col-sm-6 col-md-4 col-lg-3 chart-container'>
           <img src='https://tile.surfline.com/dashboard/buoyplot.cfm?buoy_id=46025&bp_timezone=-7&units=FT'>
         </div>
-        <div class='col-sm-6 col-md-4 col-lg-3 buoy-container'>
+        <div class='col-sm-6 col-md-4 col-lg-3 chart-container'>
           <img src='https://tile.surfline.com/dashboard/buoyplot.cfm?buoy_id=46224&bp_timezone=-7&units=FT'>
         </div>
-        <div class='col-sm-6 col-md-4 col-lg-3 buoy-container'>
+        <div class='col-sm-6 col-md-4 col-lg-3 chart-container'>
           <img src='https://tile.surfline.com/dashboard/buoyplot.cfm?buoy_id=46086&bp_timezone=-7&units=FT'>
         </div>
       </div>
       <h4 class='forecast-header'>Forecasts</h4>
       <div class='row'>
         <div class='col-sm-12 col-lg-6'>
-          <div class='buoy-container'>
+          <div class='chart-container'>
             <h6>East Santa Barbara</h6>
             <img src='http://www.stormsurf.com/4cast/graphics/enp.46053.bull.4.png'>
           </div>
-          <div class='buoy-container'>
+          <div class='chart-container'>
             <h6>West Santa Barbara</h6>
             <img src='http://www.stormsurf.com/4cast/graphics/enp.46054.bull.4.png'>
           </div>
-          <div class='buoy-container'>
+          <div class='chart-container'>
             <h6>Santa Monica Basin (Catalina Ridge)</h6>
             <img src='http://www.stormsurf.com/4cast/graphics/enp.46025.bull.4.png'>
           </div>
         </div>
         <div class='col-sm-12 col-lg-6'>
-          <div class='buoy-container'>
+          <div class='chart-container'>
             <img src='https://cdip.ucsd.edu/themes/media/images/plots/buoy_ww3.gd?stn=071&stream=p1&pub=public&tz=UTC&units=english'>
           </div>
         </div>
-      </div>
-      <div class='row'>
+        <div class='col-12 iframe-wrapper'>
+          <div class='iframe-container chart-container'>
+            <iframe scrolling='no' src="http://www.stormsurf.com/page2/forecast/shortcast/scal.html"></iframe>
+          </div>
+        </div>
       </div>
     </div>
   </body>
