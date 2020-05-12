@@ -12,9 +12,6 @@
       .container {
         margin-bottom: 20px;
       }
-      .row {
-        margin-top: 20px;
-      }
       .buoy-container {
         margin-top: 20px;
         text-align: center;
@@ -22,6 +19,17 @@
       .buoy-container img {
         max-width: 100%;
       }
+      .forecast-header, .buoy-header {
+        text-align: center;
+        margin-bottom: 10px;
+      }
+      .buoy-header {
+        margin-top: 20px;
+      }
+      .forecast-header {
+        margin-top: 40px;
+      }
+
     </style>
 
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -31,6 +39,7 @@
   </head>
   <body>
     <div class='container'>
+      <h4 class='buoy-header'>Live Buoys</h4>
       <div class='row'>
         <div class='col-sm-6 col-md-4 col-lg-3 buoy-container'>
           <img src='https://tile.surfline.com/dashboard/buoyplot.cfm?buoy_id=46053&bp_timezone=-7&units=FT'>
@@ -54,15 +63,26 @@
           <img src='https://tile.surfline.com/dashboard/buoyplot.cfm?buoy_id=46086&bp_timezone=-7&units=FT'>
         </div>
       </div>
+      <h4 class='forecast-header'>Forecasts</h4>
       <div class='row'>
-        <div class='col-12 buoy-container forecast'></div>
+        <div class='col-sm-12 col-lg-6 buoy-container'>
+          <h6>East Santa Barbara</h6>
+          <img src='http://www.stormsurf.com/4cast/graphics/enp.46053.bull.4.png'>
+        </div>
+        <div class='col-sm-12 col-lg-6 buoy-container'>
+          <h6>West Santa Barbara</h6>
+          <img src='http://www.stormsurf.com/4cast/graphics/enp.46054.bull.4.png'>
+        </div>
+        <div class='col-sm-12 col-lg-6 buoy-container'>
+          <h6>Santa Monica Basin (Catalina Ridge)</h6>
+          <img src='http://www.stormsurf.com/4cast/graphics/enp.46025.bull.4.png'>
+        </div>
+      </div>
+      <div class='row'>
+        <div class='col-12 buoy-container'>
+          <img src='https://cdip.ucsd.edu/themes/media/images/plots/buoy_ww3.gd?stn=071&stream=p1&pub=public&tz=UTC&units=english'>
+        </div>
       </div>
     </div>
-    <script type="text/javascript">
-      $(document).ready(function() {
-        var forecastPanel = "<img src='https://cdip.ucsd.edu/themes/media/images/plots/buoy_ww3.gd?stn=071&stream=p1&pub=public&tz=UTC&units=english'>"
-        $('.forecast').append(forecastPanel);
-      });
-    </script>
   </body>
 </html>
