@@ -32,13 +32,14 @@
       .iframe-wrapper {
         overflow: hidden;
       }
-      .iframe-container {
-        height: 760px;
+      .iframe-container-lg {
+        height: 800px;
         width: 1000px;
-        overflow: hidden;
+        overflow-x: auto;
+        overflow-y: hidden;
         margin-bottom: -320px;
       }
-      iframe {
+      .iframe-container-lg iframe {
         height: -webkit-fill-available;
         width: -webkit-fill-available;
         position: relative;
@@ -46,19 +47,27 @@
         right: 320px;
         border: none;
       }
-
+      .iframe-container-sm {
+        display: none;
+      }
       @media(max-width: 767px) {
-        .iframe-container {
+        .iframe-container-lg {
           height: 1085px;
           width: 800px;
         }
-        iframe {
+        .iframe-container-lg iframe {
           top: -350px;
         }
       }
       @media(max-width: 500px) {
-        .iframe-wrapper {
-          overflow: auto;
+        .iframe-container-lg {
+          display: none;
+        }
+        .iframe-container-sm {
+          display: block;
+        }
+        iframe {
+          right: 300px;
         }
       }
     </style>
@@ -116,8 +125,13 @@
           </div>
         </div>
         <div class='col-12 iframe-wrapper'>
-          <div class='iframe-container chart-container'>
-            <iframe scrolling='no' src="http://www.stormsurf.com/page2/forecast/shortcast/scal.html"></iframe>
+          <div class='iframe-container-lg chart-container'>
+            <iframe src='http://www.stormsurf.com/page2/forecast/shortcast/scal.html'></iframe>
+          </div>
+        </div>
+        <div class='col-12'>
+          <div class='iframe-container-sm chart-container'>
+            <iframe src='http://www.stormsurf.com/page2/forecast/shortcast/scal.html'></iframe>
           </div>
         </div>
       </div>
