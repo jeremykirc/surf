@@ -19,14 +19,14 @@
       .chart-container img {
         max-width: 100%;
       }
-      .forecast-header, .buoy-header {
+      .buoy-header, .tides-header, .forecast-header {
         text-align: center;
         margin-bottom: 10px;
       }
       .buoy-header {
         margin-top: 20px;
       }
-      .forecast-header {
+      .tides-header, .forecast-header {
         margin-top: 40px;
       }
       .iframe-wrapper {
@@ -103,6 +103,19 @@
           <img src='https://tile.surfline.com/dashboard/buoyplot.cfm?buoy_id=46086&bp_timezone=-7&units=FT'>
         </div>
       </div>
+      <h4 class='tides-header'>Tides</h4>
+      <div class='row'>
+        <div class='col-sm-12'>
+          <div class='chart-container'>
+            <img id='tide-chart-today' class='tide-chart'>
+          </div>
+        </div>
+        <div class='col-sm-12'>
+          <div class='chart-container'>
+            <img id='tide-chart-tomorrow' class='tide-chart'>
+          </div>
+        </div>
+      </div>
       <h4 class='forecast-header'>Forecasts</h4>
       <div class='row'>
         <div class='col-sm-12 col-lg-6'>
@@ -136,5 +149,15 @@
         </div>
       </div>
     </div>
+    <script type='application/javascript'>
+      var date = new Date();
+      var year = date.getFullYear();
+      var month = date.getMonth() + 1;
+      var day = date.getDate();
+      var todaySrc = 'http://tides-ext.surfline.com/cgi-bin/tidepng.pl?location=Rincon Island, California&startyear=' + year + '&startmonth=' + month + '&startday=' + day + '&units=feet';
+      $('#tide-chart-today').attr('src', todaySrc);
+      var tomorrowSrc = 'http://tides-ext.surfline.com/cgi-bin/tidepng.pl?location=Rincon Island, California&startyear=' + year + '&startmonth=' + month + '&startday=' + (day + 1) + '&units=feet';
+      $('#tide-chart-tomorrow').attr('src', tomorrowSrc);
+    </script>
   </body>
 </html>
