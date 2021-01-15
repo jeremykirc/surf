@@ -18,7 +18,7 @@
         text-align: center;
       }
       .chart-container img {
-        max-width: 100%;
+        width: 90%;
       }
       .buoy-header, .tides-header, .forecast-header {
         text-align: center;
@@ -51,6 +51,11 @@
       .iframe-container-sm {
         display: none;
       }
+      @media(min-width: 992px) {
+        .chart-container img.tide-chart {
+          width: 70%;
+        }
+      }
       @media(max-width: 767px) {
         .iframe-container-lg {
           height: 1085px;
@@ -77,19 +82,40 @@
     <script src='https://code.jquery.com/jquery-3.3.1.slim.min.js' integrity='sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo' crossorigin='anonymous'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js' integrity='sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1' crossorigin='anonymous'></script>
     <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js' integrity='sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM' crossorigin='anonymous'></script>
+    <script type='application/javascript'>
+      $(document).ready(function() {
+        var date = new Date();
+        var year = date.getFullYear();
+        var month = date.getMonth() + 1;
+        var day = date.getDate();
+        var todaySrc = 'http://tides-ext.surfline.com/cgi-bin/tidepng.pl?location=Rincon Island, California&startyear=' + year + '&startmonth=' + month + '&startday=' + day + '&units=feet';
+        $('#tide-chart-today').attr('src', todaySrc);
+        var tomorrowSrc = 'http://tides-ext.surfline.com/cgi-bin/tidepng.pl?location=Rincon Island, California&startyear=' + year + '&startmonth=' + month + '&startday=' + (day + 1) + '&units=feet';
+        $('#tide-chart-tomorrow').attr('src', tomorrowSrc);
+      });
+    </script>
   </head>
   <body>
     <div class='container'>
       <h4 class='buoy-header'>Live Buoys</h4>
       <div class='row'>
-        <div class='col-sm-6 col-md-4 col-lg-3 chart-container'>
+        <div class='offset-sm-2 offset-md-0 col-sm-8 col-md-4 col-lg-3 chart-container'>
           <img src='https://tile.surfline.com/dashboard/buoyplot.cfm?buoy_id=46053&bp_timezone=-8&units=FT'>
         </div>
-        <div class='col-sm-6 col-md-4 col-lg-3 chart-container'>
+        <div class='col-sm-12 col-md-8 col-lg-8 chart-container'>
+          <img src='https://tile.surfline.com/dashboard/buoyplotLarge.cfm?buoy_id=46053&bp_timezone=-8&units=FT'>
+        </div>
+        <div class='offset-sm-2 offset-md-0 col-sm-8 col-md-4 col-lg-3 chart-container'>
           <img src='https://tile.surfline.com/dashboard/buoyplot.cfm?buoy_id=46054&bp_timezone=-8&units=FT'>
         </div>
-        <div class='col-sm-6 col-md-4 col-lg-3 chart-container'>
+        <div class='col-sm-12 col-md-8 col-lg-8 chart-container'>
+          <img src='https://tile.surfline.com/dashboard/buoyplotLarge.cfm?buoy_id=46054&bp_timezone=-8&units=FT'>
+        </div>
+        <div class='offset-sm-2 offset-md-0 col-sm-8 col-md-4 col-lg-3 chart-container'>
           <img src='https://tile.surfline.com/dashboard/buoyplot.cfm?buoy_id=46218&bp_timezone=-8&units=FT'>
+        </div>
+        <div class='col-sm-12 col-md-8 col-lg-8 chart-container'>
+          <img src='https://tile.surfline.com/dashboard/buoyplotLarge.cfm?buoy_id=46218&bp_timezone=-8&units=FT'>
         </div>
         <div class='col-sm-6 col-md-4 col-lg-3 chart-container'>
           <img src='https://tile.surfline.com/dashboard/buoyplot.cfm?buoy_id=46059&bp_timezone=-8&units=FT'>
@@ -102,29 +128,6 @@
         </div>
         <div class='col-sm-6 col-md-4 col-lg-3 chart-container'>
           <img src='https://tile.surfline.com/dashboard/buoyplot.cfm?buoy_id=46086&bp_timezone=-8&units=FT'>
-        </div>
-      </div>
-      <div class='row'>
-        <div class='col-lg-6 chart-container'>
-          <img src='https://tile.surfline.com/dashboard/buoyplotLarge.cfm?buoy_id=46053&bp_timezone=-8&units=FT'>
-        </div>
-        <div class='col-lg-6 chart-container'>
-          <img src='https://tile.surfline.com/dashboard/buoyplotLarge.cfm?buoy_id=46054&bp_timezone=-8&units=FT'>
-        </div>
-        <div class='col-lg-6 chart-container'>
-          <img src='https://tile.surfline.com/dashboard/buoyplotLarge.cfm?buoy_id=46218&bp_timezone=-8&units=FT'>
-        </div>
-        <div class='col-lg-6 chart-container'>
-          <img src='https://tile.surfline.com/dashboard/buoyplotLarge.cfm?buoy_id=46059&bp_timezone=-8&units=FT'>
-        </div>
-        <div class='col-lg-6 chart-container'>
-          <img src='https://tile.surfline.com/dashboard/buoyplotLarge.cfm?buoy_id=46025&bp_timezone=-8&units=FT'>
-        </div>
-        <div class='col-lg-6 chart-container'>
-          <img src='https://tile.surfline.com/dashboard/buoyplotLarge.cfm?buoy_id=46224&bp_timezone=-8&units=FT'>
-        </div>
-        <div class='col-lg-6 chart-container'>
-          <img src='https://tile.surfline.com/dashboard/buoyplotLarge.cfm?buoy_id=46086&bp_timezone=-8&units=FT'>
         </div>
       </div>
       <h4 class='tides-header'>Tides</h4>
@@ -173,15 +176,5 @@
         </div>
       </div>
     </div>
-    <script type='application/javascript'>
-      var date = new Date();
-      var year = date.getFullYear();
-      var month = date.getMonth() + 1;
-      var day = date.getDate();
-      var todaySrc = 'http://tides-ext.surfline.com/cgi-bin/tidepng.pl?location=Rincon Island, California&startyear=' + year + '&startmonth=' + month + '&startday=' + day + '&units=feet';
-      $('#tide-chart-today').attr('src', todaySrc);
-      var tomorrowSrc = 'http://tides-ext.surfline.com/cgi-bin/tidepng.pl?location=Rincon Island, California&startyear=' + year + '&startmonth=' + month + '&startday=' + (day + 1) + '&units=feet';
-      $('#tide-chart-tomorrow').attr('src', tomorrowSrc);
-    </script>
   </body>
 </html>
