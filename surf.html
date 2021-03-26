@@ -24,10 +24,10 @@
         text-align: center;
         margin-bottom: 10px;
       }
-      .buoy-header {
+      .buoy-header, .tides-header {
         margin-top: 20px;
       }
-      .tides-header, .forecast-header {
+      .forecast-header {
         margin-top: 40px;
       }
       .iframe-wrapper {
@@ -130,15 +130,19 @@
             <img src='https://tile.surfline.com/dashboard/buoyplotLarge.cfm?buoy_id=46218&bp_timezone=-8&units=FT'>
           </div>
         </div>
-        <!-- div class='col-sm-6 col-md-4 col-lg-3 chart-container'>
-          <img src='https://tile.surfline.com/dashboard/buoyplot.cfm?buoy_id=46025&bp_timezone=-8&units=FT'>
+        <div class='offset-sm-2 offset-md-0 col-sm-8 col-md-4 col-lg-3 chart-container'>
+          <div class='mb-3'>
+            <img src='https://tile.surfline.com/dashboard/buoyplot.cfm?buoy_id=46025&bp_timezone=-8&units=FT'>
+          </div>
+          <div>
+            <img src='https://tile.surfline.com/dashboard/buoyplot.cfm?buoy_id=46086&bp_timezone=-8&units=FT'>
+          </div>
         </div>
-        <div class='col-sm-6 col-md-4 col-lg-3 chart-container'>
-          <img src='https://tile.surfline.com/dashboard/buoyplot.cfm?buoy_id=46224&bp_timezone=-8&units=FT'>
+        <div class='col-sm-12 col-md-8 col-lg-9 chart-container'>
+          <div>
+            <img src='https://tile.surfline.com/dashboard/buoyplotLarge.cfm?buoy_id=46025&bp_timezone=-8&units=FT'>
+          </div>
         </div>
-        <div class='col-sm-6 col-md-4 col-lg-3 chart-container'>
-          <img src='https://tile.surfline.com/dashboard/buoyplot.cfm?buoy_id=46086&bp_timezone=-8&units=FT'>
-        </div> -->
       </div>
       <div class='row sm-screen'>
         <div class='col-12 chart-container'>
@@ -171,17 +175,19 @@
             <img src='https://tile.surfline.com/dashboard/buoyplotLarge.cfm?buoy_id=46218&bp_timezone=-8&units=FT'>
           </div>
         </div>
-      </div>
-      <h4 class='tides-header'>Tides</h4>
-      <div class='row'>
-        <div class='col-sm-12'>
-          <div class='chart-container'>
-            <img id='tide-chart-today' class='tide-chart'>
+        <div class='col-12 chart-container'>
+          <div class='row'>
+            <div class='col-6'>
+              <img src='https://tile.surfline.com/dashboard/buoyplot.cfm?buoy_id=46025&bp_timezone=-8&units=FT'>
+            </div>
+            <div class='col-6'>
+              <img src='https://tile.surfline.com/dashboard/buoyplot.cfm?buoy_id=46086&bp_timezone=-8&units=FT'>
+            </div>
           </div>
         </div>
-        <div class='col-sm-12'>
-          <div class='chart-container'>
-            <img id='tide-chart-tomorrow' class='tide-chart'>
+        <div class='col-12 chart-container'>
+          <div>
+            <img src='https://tile.surfline.com/dashboard/buoyplotLarge.cfm?buoy_id=46025&bp_timezone=-8&units=FT'>
           </div>
         </div>
       </div>
@@ -196,10 +202,10 @@
             <h6>West Santa Barbara</h6>
             <img src='http://www.stormsurf.com/4cast/graphics/enp.46054.bull.4.png'>
           </div>
-          <!-- <div class='chart-container'>
+          <div class='chart-container'>
             <h6>Santa Monica Basin (Catalina Ridge)</h6>
             <img src='http://www.stormsurf.com/4cast/graphics/enp.46025.bull.4.png'>
-          </div> -->
+          </div>
         </div>
         <div class='col-sm-12 col-lg-6'>
           <div class='chart-container'>
@@ -216,6 +222,19 @@
             <iframe src='http://www.stormsurf.com/page2/forecast/shortcast/scal.html'></iframe>
           </div>
         </div> -->
+      </div>
+      <h4 class='tides-header'>Tides</h4>
+      <div class='row'>
+        <div class='col-sm-12'>
+          <div class='chart-container'>
+            <img id='tide-chart-today' class='tide-chart'>
+          </div>
+        </div>
+        <div class='col-sm-12'>
+          <div class='chart-container'>
+            <img id='tide-chart-tomorrow' class='tide-chart'>
+          </div>
+        </div>
       </div>
     </div>
   </body>
