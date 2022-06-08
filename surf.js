@@ -118,16 +118,25 @@ const createLiveBuoyChart = (buoy, buoyData) => {
     return dataset;
   });
   createAndAttachChart(buoy, [combinedHeightDataset, ...swellDatasets]);
-  createAndAttachLatestSwellReadings(buoy, dates, swellDatasets);
+  createAndAttachLatestSwellReadings(buoy, dates, swellDatasets, buoyData[0].waterTemperature);
 };
 
-const createAndAttachLatestSwellReadings = (buoy, dates, swellDatasets) => {
+const createAndAttachLatestSwellReadings = (buoy, dates, swellDatasets, waterTemp) => {
+  const date = dates[0];
+  const lastUpdatedDate = date.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
+  $(`#latestSwellReadings-${buoy.id}`).prepend(`<li class='updated-at'>Latest update: ${lastUpdatedDate}</li>`);
   swellDatasets.forEach(dataset => {
     const datapoint = dataset.data[0];
-    if (datapoint.x === dates[0] && datapoint.y) {
-      $(`#latestSwellReadings-${buoy.id}`).append(`<li><span class='dot' style='background-color: ${dataset.backgroundColor}'></span>${datapoint.y}ft @ ${datapoint.label}</li>`);
+    if (datapoint.x === date && datapoint.y) {
+      $(`#latestSwellReadings-${buoy.id}`).append(`
+        <li>
+          <span class='dot' style='background-color: ${dataset.backgroundColor}'></span>
+          ${datapoint.y}ft @ ${datapoint.label}
+        </li>
+      `);
     }
   });
+  // $(`#latestSwellReadings-${buoy.id}`).append(`<li class='water-temp'>Water Temp. ${waterTemp}°</li>`);
 };
 
 const createAndAttachChart = (buoy, datasets) => {
