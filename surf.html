@@ -98,97 +98,32 @@
     <script src='https://code.jquery.com/jquery-3.3.1.slim.min.js' integrity='sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo' crossorigin='anonymous'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js' integrity='sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1' crossorigin='anonymous'></script>
     <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js' integrity='sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM' crossorigin='anonymous'></script>
+    <script src='https://cdn.jsdelivr.net/npm/chart.js@3.8.0/dist/chart.min.js'></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
     <script src='https://jeremykirc.github.io/surf/surf.js'></script>
+    <!-- <script src='/Users/jeremy.kirchhoff/surf/surf.js'></script> -->
   </head>
   <body>
     <div class='container'>
       <h4 class='buoy-header'>Live Buoys</h4>
-      <div class='row lg-screen'>
-        <div class='offset-sm-2 offset-md-0 col-sm-8 col-md-4 col-lg-3 chart-container'>
-          <div class='mb-3'>
-            <img src='https://tile.surfline.com/dashboard/buoyplot.cfm?buoy_id=46053&bp_timezone=-8&units=FT'>
-          </div>
-          <div>
-            <img src='https://tile.surfline.com/dashboard/buoyplot.cfm?buoy_id=46025&bp_timezone=-8&units=FT'>
-          </div>
+      <div class='row'>
+        <div class='col-md-6 chart-container'>
+          <canvas id='buoyChart-46053' height='1' width='1'></canvas>
         </div>
-        <div class='col-sm-12 col-md-8 col-lg-9 chart-container'>
-          <div>
-            <img src='https://tile.surfline.com/dashboard/buoyplotLarge.cfm?buoy_id=46053&bp_timezone=-8&units=FT'>
-          </div>
+        <div class='col-md-6 chart-container'>
+          <canvas id='buoyChart-46054' height='1' width='1'></canvas>
         </div>
-        <div class='offset-sm-2 offset-md-0 col-sm-8 col-md-4 col-lg-3 chart-container'>
-          <div class='mb-3'>
-            <img src='https://tile.surfline.com/dashboard/buoyplot.cfm?buoy_id=46218&bp_timezone=-8&units=FT'>
-          </div>
-          <div>
-            <img src='https://tile.surfline.com/dashboard/buoyplot.cfm?buoy_id=46059&bp_timezone=-8&units=FT'>
-          </div>
+        <div class='col-md-6 chart-container'>
+          <canvas id='buoyChart-46218' height='1' width='1'></canvas>
         </div>
-        <div class='col-sm-12 col-md-8 col-lg-9 chart-container'>
-          <div>
-            <img src='https://tile.surfline.com/dashboard/buoyplotLarge.cfm?buoy_id=46218&bp_timezone=-8&units=FT'>
-          </div>
+        <div class='col-md-6 chart-container'>
+          <canvas id='buoyChart-46059' height='1' width='1'></canvas>
         </div>
-        <div class='offset-sm-2 offset-md-0 col-sm-8 col-md-4 col-lg-3 chart-container'>
-          <div class='mb-3'>
-            <img src='https://tile.surfline.com/dashboard/buoyplot.cfm?buoy_id=46224&bp_timezone=-8&units=FT'>
-          </div>
-          <div>
-            <img src='https://tile.surfline.com/dashboard/buoyplot.cfm?buoy_id=46086&bp_timezone=-8&units=FT'>
-          </div>
+        <div class='col-md-6 chart-container'>
+          <canvas id='buoyChart-46025' height='1' width='1'></canvas>
         </div>
-        <div class='col-sm-12 col-md-8 col-lg-9 chart-container'>
-          <div>
-            <img src='https://tile.surfline.com/dashboard/buoyplotLarge.cfm?buoy_id=46025&bp_timezone=-8&units=FT'>
-          </div>
-        </div>
-      </div>
-      <div class='row sm-screen'>
-        <div class='col-12 chart-container'>
-          <div class='row'>
-            <div class='col-6'>
-              <img src='https://tile.surfline.com/dashboard/buoyplot.cfm?buoy_id=46053&bp_timezone=-8&units=FT'>
-            </div>
-            <div class='col-6'>
-              <img src='https://tile.surfline.com/dashboard/buoyplot.cfm?buoy_id=46025&bp_timezone=-8&units=FT'>
-            </div>
-          </div>
-        </div>
-        <div class='col-12 chart-container'>
-          <div>
-            <img src='https://tile.surfline.com/dashboard/buoyplotLarge.cfm?buoy_id=46053&bp_timezone=-8&units=FT'>
-          </div>
-        </div>
-        <div class='col-12 chart-container'>
-          <div class='row'>
-            <div class='col-6'>
-              <img src='https://tile.surfline.com/dashboard/buoyplot.cfm?buoy_id=46218&bp_timezone=-8&units=FT'>
-            </div>
-            <div class='col-6'>
-              <img src='https://tile.surfline.com/dashboard/buoyplot.cfm?buoy_id=46059&bp_timezone=-8&units=FT'>
-            </div>
-          </div>
-        </div>
-        <div class='col-12 chart-container'>
-          <div>
-            <img src='https://tile.surfline.com/dashboard/buoyplotLarge.cfm?buoy_id=46218&bp_timezone=-8&units=FT'>
-          </div>
-        </div>
-        <div class='col-12 chart-container'>
-          <div class='row'>
-            <div class='col-6'>
-              <img src='https://tile.surfline.com/dashboard/buoyplot.cfm?buoy_id=46224&bp_timezone=-8&units=FT'>
-            </div>
-            <div class='col-6'>
-              <img src='https://tile.surfline.com/dashboard/buoyplot.cfm?buoy_id=46086&bp_timezone=-8&units=FT'>
-            </div>
-          </div>
-        </div>
-        <div class='col-12 chart-container'>
-          <div>
-            <img src='https://tile.surfline.com/dashboard/buoyplotLarge.cfm?buoy_id=46025&bp_timezone=-8&units=FT'>
-          </div>
+        <div class='col-md-6 chart-container'>
+          <canvas id='buoyChart-46086' height='1' width='1'></canvas>
         </div>
       </div>
       <h4 class='forecast-header'>Forecasts</h4>
