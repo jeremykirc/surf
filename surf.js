@@ -74,7 +74,7 @@ const createLiveBuoyChart = (buoy, buoyData) => {
       const compassDirection = degreeToCompass(swell.direction);
       const key = `${approximateDirection}${swellType.key}`;
       // Ignore unimportant swell readings.
-      if (swell.direction <= 150 || swell.period <= 4 || swell.height <= 1.5) return;
+      if (swell.direction <= 150 || swell.period <= 4 || swell.height <= 0.5) return;
       if (approximateDirection === 'S' && swellType.key === 'spws') return;
 
       // Create a new dataset for the swell type if it doesn't already exist.
@@ -118,6 +118,16 @@ const createLiveBuoyChart = (buoy, buoyData) => {
     return dataset;
   });
   createAndAttachChart(buoy, [combinedHeightDataset, ...swellDatasets]);
+  createAndAttachLatestSwellReadings(buoy, dates, swellDatasets);
+};
+
+const createAndAttachLatestSwellReadings = (buoy, dates, swellDatasets) => {
+  swellDatasets.forEach(dataset => {
+    const datapoint = dataset.data[0];
+    if (datapoint.x === dates[0] && datapoint.y) {
+      $(`#latestSwellReadings-${buoy.id}`).append(`<li><span class='dot' style='background-color: ${dataset.backgroundColor}'></span>${datapoint.y}ft @ ${datapoint.label}</li>`);
+    }
+  });
 };
 
 const createAndAttachChart = (buoy, datasets) => {
@@ -157,7 +167,7 @@ const createAndAttachChart = (buoy, datasets) => {
           callbacks: {
             label: context => {
               let label = `${context.parsed.y}ft`;
-              if (context.raw.label) label += ` at ${context.raw.label}`;
+              if (context.raw.label) label += ` @ ${context.raw.label}`;
               return label;
             }
           }

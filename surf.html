@@ -17,8 +17,27 @@
         margin-top: 30px;
         text-align: center;
       }
+      .chart-container ul {
+        margin: 20px 0px 10px;
+        padding-left: 20px;
+        text-align: left;
+        list-style: none;
+        font-size: 14px;
+      }
+      .chart-container .chart-wrapper {
+        height: 100%;
+        border: 1px solid lightgray;
+        padding: 5px 10px;
+      }
       .chart-container img {
         width: 100%;
+      }
+      .dot {
+        height: 10px;
+        width: 10px;
+        margin-right: 5px;
+        border-radius: 50%;
+        display: inline-block;
       }
       .buoy-header, .tides-header, .forecast-header {
         text-align: center;
@@ -108,22 +127,41 @@
       <h4 class='buoy-header'>Live Buoys</h4>
       <div class='row'>
         <div class='col-md-6 chart-container'>
-          <canvas id='buoyChart-46053' height='1' width='1'></canvas>
+          <div class='chart-wrapper'>
+            <canvas id='buoyChart-46053' height='1' width='1'></canvas>
+            <ul id='latestSwellReadings-46053'></ul>
+          </div>
         </div>
         <div class='col-md-6 chart-container'>
-          <canvas id='buoyChart-46054' height='1' width='1'></canvas>
+          <div class='chart-wrapper'>
+            <canvas id='buoyChart-46054' height='1' width='1'></canvas>
+            <ul id='latestSwellReadings-46054'></ul>
+          </div>
+        </div>
+        <hr/>
+        <div class='col-md-6 chart-container'>
+          <div class='chart-wrapper'>
+            <canvas id='buoyChart-46218' height='1' width='1'></canvas>
+            <ul id='latestSwellReadings-46218'></ul>
+          </div>
         </div>
         <div class='col-md-6 chart-container'>
-          <canvas id='buoyChart-46218' height='1' width='1'></canvas>
+          <div class='chart-wrapper'>
+            <canvas id='buoyChart-46059' height='1' width='1'></canvas>
+            <ul id='latestSwellReadings-46059'></ul>
+          </div>
         </div>
         <div class='col-md-6 chart-container'>
-          <canvas id='buoyChart-46059' height='1' width='1'></canvas>
+          <div class='chart-wrapper'>
+            <canvas id='buoyChart-46025' height='1' width='1'></canvas>
+            <ul id='latestSwellReadings-46025'></ul>
+          </div>
         </div>
         <div class='col-md-6 chart-container'>
-          <canvas id='buoyChart-46025' height='1' width='1'></canvas>
-        </div>
-        <div class='col-md-6 chart-container'>
-          <canvas id='buoyChart-46086' height='1' width='1'></canvas>
+          <div class='chart-wrapper'>
+            <canvas id='buoyChart-46086' height='1' width='1'></canvas>
+            <ul id='latestSwellReadings-46086'></ul>
+          </div>
         </div>
       </div>
       <h4 class='forecast-header'>Forecasts</h4>
