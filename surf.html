@@ -32,6 +32,11 @@
       .chart-container img {
         width: 100%;
       }
+      li.updated-at {
+        margin-bottom: 5px;
+        font-size: 12px;
+        font-style: italic;
+      }
       .dot {
         height: 10px;
         width: 10px;
@@ -39,36 +44,17 @@
         border-radius: 50%;
         display: inline-block;
       }
-      .buoy-header, .tides-header, .forecast-header {
+      .buoy-header, .tides-header, .forecast-header, .wind-header {
         text-align: center;
-        margin-bottom: 10px;
-      }
-      .buoy-header, .tides-header {
-        margin-top: 20px;
-      }
-      .forecast-header {
+        margin-bottom: 0px;
         margin-top: 40px;
       }
-      .iframe-wrapper {
-        overflow: hidden;
+      .buoy-header {
+        margin-top: 20px;
       }
-      .iframe-container-lg {
-        height: 800px;
-        width: 1000px;
-        overflow-x: auto;
-        overflow-y: hidden;
-        margin-bottom: -320px;
-      }
-      .iframe-container-lg iframe {
-        height: -webkit-fill-available;
-        width: -webkit-fill-available;
-        position: relative;
-        top: -320px;
-        right: 320px;
-        border: none;
-      }
-      .iframe-container-sm {
-        display: none;
+      iframe {
+        width: 93vw;
+        max-width: 1100px;
       }
       @media(min-width: 992px) {
         .chart-container img.tide-chart {
@@ -86,27 +72,14 @@
         }
       }
       @media(max-width: 767px) {
-        .iframe-container-lg {
-          height: 1085px;
-          width: 800px;
-        }
-        .iframe-container-lg iframe {
-          top: -350px;
-        }
         .row.lg-screen {
           display: none;
         }
+        iframe {
+          width: 90vw;
+        }
       }
       @media(max-width: 500px) {
-        .iframe-container-lg {
-          display: none;
-        }
-        .iframe-container-sm {
-          display: block;
-        }
-        iframe {
-          right: 300px;
-        }
         .chart-container img {
           width: 100%;
         }
@@ -119,8 +92,8 @@
     <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js' integrity='sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM' crossorigin='anonymous'></script>
     <script src='https://cdn.jsdelivr.net/npm/chart.js@3.8.0/dist/chart.min.js'></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
-    <script src='https://jeremykirc.github.io/surf/surf.js'></script>
-    <!-- <script src='/Users/jeremy.kirchhoff/surf/surf.js'></script> -->
+    <!-- <script src='https://jeremykirc.github.io/surf/surf.js'></script> -->
+    <script src='/Users/jeremy.kirchhoff/surf/surf.js'></script>
   </head>
   <body>
     <div class='container'>
@@ -164,7 +137,7 @@
           </div>
         </div>
       </div>
-      <h4 class='forecast-header'>Forecasts</h4>
+      <h4 class='forecast-header'>Buoy Forecasts</h4>
       <div class='row'>
         <div class='col-12'>
           <div class='chart-container'>
@@ -185,16 +158,15 @@
             <img src='https://cdip.ucsd.edu/themes/media/images/plots/buoy_ww3.gd?stn=071&stream=p1&pub=public&tz=PST&units=english'>
           </div>
         </div>
-        <!-- <div class='col-12 iframe-wrapper'>
-          <div class='iframe-container-lg chart-container'>
-            <iframe src='http://www.stormsurf.com/page2/forecast/shortcast/scal.html'></iframe>
+      </div>
+      <h4 class='wind-header'>Wind Forecast</h4>
+      <div class='row'>
+        <div class='col-12'>
+          <div class='chart-container'>
+            <!-- <iframe height='600' src='https://embed.windy.com/embed2.html?lat=34.217&lon=-119.441&detailLat=34.320&detailLon=-119.386&width=750&height=600&zoom=10&level=surface&overlay=wind&product=ecmwf&menu=&message=true&marker=&calendar=now&pressure=&type=map&location=coordinates&detail=true&metricWind=default&metricTemp=default&radarRange=-1' frameborder='0'></iframe> -->
+            <iframe height='600' src='https://embed.windy.com/embed2.html?lat=34.215&lon=-119.522&detailLat=34.240&detailLon=-119.265&width=750&height=600&zoom=10&level=surface&overlay=wind&product=ecmwf&menu=&message=true&marker=&calendar=now&pressure=&type=map&location=coordinates&detail=&metricWind=default&metricTemp=default&radarRange=-1' frameborder='0'></iframe>
           </div>
         </div>
-        <div class='col-12'>
-          <div class='iframe-container-sm chart-container'>
-            <iframe src='http://www.stormsurf.com/page2/forecast/shortcast/scal.html'></iframe>
-          </div>
-        </div> -->
       </div>
       <h4 class='tides-header'>Tides</h4>
       <div class='row'>
