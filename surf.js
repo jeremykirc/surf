@@ -152,6 +152,7 @@ const createAndAttachLatestSwellReadings = (buoy, dates, swellDatasets, waterTem
 
 const createAndAttachChart = (buoy, datasets) => {
   const ctx = document.getElementById(`buoyChart-${buoy.id}`).getContext('2d');
+  Chart.register(verticalLineChartPlugin);
   new Chart(ctx, {
     type: 'line',
     data: { datasets },
@@ -176,7 +177,8 @@ const createAndAttachChart = (buoy, datasets) => {
         }
       },
       interaction: {
-        mode: 'index'
+        mode: 'index',
+        intersect: false
       },
       plugins: {
         title: {
@@ -206,7 +208,7 @@ const createAndAttachChart = (buoy, datasets) => {
               return label;
             }
           }
-        }
+        },
       }
     }
   });
@@ -228,4 +230,23 @@ const degreeToCompass = deg => {
   const val = Math.floor((deg / 22.5) + 0.5);
   const directions = ['N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW'];
   return directions[(val % 16)];
+};
+
+const verticalLineChartPlugin = {
+  id: 'verticalLine',
+  afterDraw: chart => {
+    if (chart.tooltip?._active?.length) {
+      let x = chart.tooltip._active[0].element.x;
+      let yAxis = chart.scales.y;
+      let ctx = chart.ctx;
+      ctx.save();
+      ctx.beginPath();
+      ctx.moveTo(x, yAxis.top);
+      ctx.lineTo(x, yAxis.bottom);
+      ctx.lineWidth = 2;
+      ctx.strokeStyle = 'lightgrey';
+      ctx.stroke();
+      ctx.restore();
+    }
+  }
 };
