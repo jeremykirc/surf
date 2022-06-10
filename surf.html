@@ -44,6 +44,23 @@
         border-radius: 50%;
         display: inline-block;
       }
+      .water-temp {
+        margin-top: 5px;
+      }
+      .water-temp span {
+        position: relative;
+        top: 2px;
+        font-size: 16px;
+        font-weight: 600;
+        color: #2a5f75;
+      }
+      .water-temp img.waterdrop {
+        position: relative;
+        right: 1px;
+        margin-right: 3px;
+        height: 20px;
+        width: auto;
+      }
       .buoy-header, .tides-header, .forecast-header, .wind-header {
         text-align: center;
         margin-bottom: 0px;
@@ -87,13 +104,16 @@
     </style>
 
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src='https://code.jquery.com/jquery-3.3.1.slim.min.js' integrity='sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo' crossorigin='anonymous'></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js' integrity='sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1' crossorigin='anonymous'></script>
     <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js' integrity='sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM' crossorigin='anonymous'></script>
     <script src='https://cdn.jsdelivr.net/npm/chart.js@3.8.0/dist/chart.min.js'></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
-    <script src='https://jeremykirc.github.io/surf/surf.js'></script>
-    <!-- <script src='/Users/jeremy.kirchhoff/surf/surf.js'></script> -->
+    <!-- Attempt to load local js file, otherwise load remote source -->
+    <script src='/Users/jeremy.kirchhoff/surf/surf.js'></script>
+    <script type='application/javascript'>
+      if (!window.surfJsLoaded) $.getScript('https://jeremykirc.github.io/surf/surf.js')
+    </script>
   </head>
   <body>
     <div class='container'>

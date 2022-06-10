@@ -3,6 +3,8 @@ $(document).ready(() => {
   generateLiveBuoyCharts();
 });
 
+window.surfJsLoaded = true;
+
 const swellTypeToColorMap = {
   spws: '#0000ff',
   ws: '#00b7ff',
@@ -23,7 +25,9 @@ const getTideCharts = () => {
 };
 
 const fetchBuoyData = async (buoyUuid) => {
-  const url = `https://services.surfline.com/kbyg/buoys/report/${buoyUuid}?days=2`;
+  let days = 3;
+  if (window.innerWidth <= 500 || (window.innerWidth < 991 && window.innerWidth > 768)) days = 2;
+  const url = `https://services.surfline.com/kbyg/buoys/report/${buoyUuid}?days=${days}`;
   const response = await window.fetch(url);
   const jsonResponse = await response.json();
   return jsonResponse.data;
@@ -56,12 +60,14 @@ const createLiveBuoyChart = (buoy, buoyData) => {
   };
   let swellDatasets = {};
   const dates = [];
+  const waterTemps = [];
   buoyData.forEach(datapoint => {
     const date = new Date(datapoint.timestamp * 1000);
     // There is often duplicate data at 40 and 50 minute marks, so only use one.
     if (date.getMinutes() === 40) return;
 
     dates.push(date);
+    if (datapoint.waterTemperature) waterTemps.push(datapoint.waterTemperature);
     // Add a data point for the combined height.
     combinedHeightDataset.data.push({
       x: date,
@@ -118,7 +124,7 @@ const createLiveBuoyChart = (buoy, buoyData) => {
     return dataset;
   });
   createAndAttachChart(buoy, [combinedHeightDataset, ...swellDatasets]);
-  createAndAttachLatestSwellReadings(buoy, dates, swellDatasets, buoyData[0].waterTemperature);
+  createAndAttachLatestSwellReadings(buoy, dates, swellDatasets, waterTemps[0]);
 };
 
 const createAndAttachLatestSwellReadings = (buoy, dates, swellDatasets, waterTemp) => {
@@ -136,11 +142,17 @@ const createAndAttachLatestSwellReadings = (buoy, dates, swellDatasets, waterTem
       `);
     }
   });
-  // $(`#latestSwellReadings-${buoy.id}`).append(`<li class='water-temp'>Water Temp. ${waterTemp}°</li>`);
+  $(`#latestSwellReadings-${buoy.id}`).append(`
+    <li class='water-temp'>
+      <img class='waterdrop' src='https://jeremykirc.github.io/surf/waterdrop.png'></img>
+      <span>${waterTemp}°</span>
+    </li>
+  `);
 };
 
 const createAndAttachChart = (buoy, datasets) => {
   const ctx = document.getElementById(`buoyChart-${buoy.id}`).getContext('2d');
+  Chart.register(verticalLineChartPlugin);
   new Chart(ctx, {
     type: 'line',
     data: { datasets },
@@ -164,6 +176,10 @@ const createAndAttachChart = (buoy, datasets) => {
           },
         }
       },
+      interaction: {
+        mode: 'index',
+        intersect: false
+      },
       plugins: {
         title: {
           display: true,
@@ -174,13 +190,25 @@ const createAndAttachChart = (buoy, datasets) => {
         },
         tooltip: {
           callbacks: {
+            labelColor: context => {
+              const { borderColor, backgroundColor } = {...context.dataset};
+              return {
+                borderWidth: 1,
+                borderColor,
+                backgroundColor,
+              }
+            },
             label: context => {
               let label = `${context.parsed.y}ft`;
-              if (context.raw.label) label += ` @ ${context.raw.label}`;
+              if (context.raw.label) {
+                label += ` @ ${context.raw.label}`
+              } else {
+                label += ' Combined Height'
+              };
               return label;
             }
           }
-        }
+        },
       }
     }
   });
@@ -202,4 +230,23 @@ const degreeToCompass = deg => {
   const val = Math.floor((deg / 22.5) + 0.5);
   const directions = ['N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW'];
   return directions[(val % 16)];
+};
+
+const verticalLineChartPlugin = {
+  id: 'verticalLine',
+  afterDraw: chart => {
+    if (chart.tooltip?._active?.length) {
+      let x = chart.tooltip._active[0].element.x;
+      let yAxis = chart.scales.y;
+      let ctx = chart.ctx;
+      ctx.save();
+      ctx.beginPath();
+      ctx.moveTo(x, yAxis.top);
+      ctx.lineTo(x, yAxis.bottom);
+      ctx.lineWidth = 2;
+      ctx.strokeStyle = 'lightgrey';
+      ctx.stroke();
+      ctx.restore();
+    }
+  }
 };
