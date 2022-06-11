@@ -5,14 +5,6 @@ $(document).ready(() => {
 
 window.surfJsLoaded = true;
 
-const swellTypeToColorMap = {
-  spws: '#0000ff',
-  ws: '#00b7ff',
-  gs: '#ffca00',
-  mpgs: '#ff4800',
-  lpgs: '#e60000',
-};
-
 const getTideCharts = () => {
   const date = new Date();
   const year = date.getFullYear();
@@ -87,8 +79,8 @@ const createLiveBuoyChart = (buoy, buoyData) => {
       if (!swellDatasets[key]) {
         swellDatasets[key] = {
           data: [],
-          borderColor: swellTypeToColorMap[swellType.key],
-          backgroundColor: swellTypeToColorMap[swellType.key],
+          borderColor: swellType.color,
+          backgroundColor: swellType.color,
           tension: 0.5,
           spanGaps: false,
         };
@@ -216,13 +208,15 @@ const createAndAttachChart = (buoy, datasets) => {
 
 const periodToSwellType = period => {
   if (period <= 6) {
-    return { key: 'spws', displayName: 'Short Period Windswell' };
-  } else if (period <= 10) {
-    return { key: 'ws', displayName: 'Windswell' };
+    return { key: 'spws', displayName: 'Short Period Windswell', color: '#0000ff' };
+  } else if (period <= 9) {
+    return { key: 'ws', displayName: 'Windswell', color: '#00b7ff' };
+  } else if (period <= 12) {
+    return { key: 'mps', displayName: 'Mid Period Swell', color: '#ffca00' };
   } else if (period <= 17) {
-    return { key: 'gs', displayName: 'Groundswell' };
+    return { key: 'gs', displayName: 'Groundswell', color: '#ff8223' };
   } else {
-    return { key: 'lpgs', displayName: 'Long Period Groundswell' };
+    return { key: 'lpgs', displayName: 'Long Period Groundswell', color: '#e60000' };
   }
 };
 
