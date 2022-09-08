@@ -72,7 +72,7 @@ const createLiveBuoyChart = (buoy, buoyData) => {
       const compassDirection = degreeToCompass(swell.direction);
       const key = `${approximateDirection}${swellType.key}`;
       // Ignore unimportant swell readings.
-      if (swell.direction < 150 || swell.period < 4 || swell.height < 0.5) return;
+      if (swell.period < 4 || swell.height < 0.5) return;
       if (approximateDirection === 'S' && swellType.key === 'spws') return;
 
       // Create a new dataset for the swell type if it doesn't already exist.
