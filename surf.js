@@ -1,34 +1,8 @@
 $(document).ready(() => {
-  getTideCharts();
   generateLiveBuoyCharts();
 });
 
 window.surfJsLoaded = true;
-
-const getTideCharts = () => {
-  const date = new Date();
-  const year = date.getFullYear();
-  const month = date.getMonth() + 1;
-  const day = date.getDate();
-  const todaySrc =
-    'http://tides-ext.surfline.com/cgi-bin/tidepng.pl?location=Rincon Island, California&startyear=' +
-    year +
-    '&startmonth=' +
-    month +
-    '&startday=' +
-    day +
-    '&units=feet';
-  $('#tide-chart-today').attr('src', todaySrc);
-  const tomorrowSrc =
-    'http://tides-ext.surfline.com/cgi-bin/tidepng.pl?location=Rincon Island, California&startyear=' +
-    year +
-    '&startmonth=' +
-    month +
-    '&startday=' +
-    (day + 1) +
-    '&units=feet';
-  $('#tide-chart-tomorrow').attr('src', tomorrowSrc);
-};
 
 const fetchBuoyData = async (buoyUuid) => {
   let days = 3;
