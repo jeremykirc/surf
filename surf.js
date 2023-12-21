@@ -84,10 +84,19 @@ const createLiveBuoyChart = (buoy, buoyData) => {
       const approximateDirection = swell.direction >= 240 ? 'W' : 'S';
       const swellType = periodToSwellType(swell.period);
       const compassDirection = degreeToCompass(swell.direction);
-      const key = `${approximateDirection}${swellType.key}`;
+      let key = `${approximateDirection}${swellType.key}`;
       // Ignore unimportant swell readings.
       if (swell.period < 4 || swell.height < 0.5) return;
       if (approximateDirection === 'S' && swellType.key === 'spws') return;
+
+      // It isn't working to have multiple datapoints for a given dataset on the same date,
+      // so use a separate key for these extra datapoints
+      if (swellDatasets[key] && swellDatasets[key].data.find((dp) => dp.x === date)) {
+        key = key + '_secondary';
+        if (swellDatasets[key] && swellDatasets[key].data.find((dp) => dp.x === date)) {
+          key = key + '_tertiary';
+        }
+      }
 
       // Create a new dataset for the swell type if it doesn't already exist.
       if (!swellDatasets[key]) {
@@ -98,15 +107,6 @@ const createLiveBuoyChart = (buoy, buoyData) => {
           tension: 0.5,
           spanGaps: false,
         };
-      }
-      // Only keep the largest datapoint for each swell type + timestamp.
-      const existingDatapoint = swellDatasets[key].data.find((dp) => dp.x === date);
-      if (existingDatapoint) {
-        if (existingDatapoint.height >= swell.height) {
-          return;
-        } else if (existingDatapoint.height < swell.height) {
-          swellDatasets[key].data.splice(swellDatasets[key].data.indexOf(existingDatapoint));
-        }
       }
 
       // Add the datapoint to the dataset.
