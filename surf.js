@@ -10,9 +10,23 @@ const getTideCharts = () => {
   const year = date.getFullYear();
   const month = date.getMonth() + 1;
   const day = date.getDate();
-  const todaySrc = 'http://tides-ext.surfline.com/cgi-bin/tidepng.pl?location=Rincon Island, California&startyear=' + year + '&startmonth=' + month + '&startday=' + day + '&units=feet';
+  const todaySrc =
+    'http://tides-ext.surfline.com/cgi-bin/tidepng.pl?location=Rincon Island, California&startyear=' +
+    year +
+    '&startmonth=' +
+    month +
+    '&startday=' +
+    day +
+    '&units=feet';
   $('#tide-chart-today').attr('src', todaySrc);
-  const tomorrowSrc = 'http://tides-ext.surfline.com/cgi-bin/tidepng.pl?location=Rincon Island, California&startyear=' + year + '&startmonth=' + month + '&startday=' + (day + 1) + '&units=feet';
+  const tomorrowSrc =
+    'http://tides-ext.surfline.com/cgi-bin/tidepng.pl?location=Rincon Island, California&startyear=' +
+    year +
+    '&startmonth=' +
+    month +
+    '&startday=' +
+    (day + 1) +
+    '&units=feet';
   $('#tide-chart-tomorrow').attr('src', tomorrowSrc);
 };
 
@@ -34,7 +48,7 @@ const generateLiveBuoyCharts = async () => {
     { id: '46025', uuid: '1b3c155c-cecc-11eb-bbec-024238d3b313', displayName: 'Santa Monica Basin' },
     { id: '46086', uuid: '62dfcbfe-cecc-11eb-a7ce-024238d3b313', displayName: 'San Clemente Basin' },
   ];
-  buoys.forEach(async buoy => {
+  buoys.forEach(async (buoy) => {
     const buoyData = await fetchBuoyData(buoy.uuid);
     createLiveBuoyChart(buoy, buoyData);
   });
@@ -53,7 +67,7 @@ const createLiveBuoyChart = (buoy, buoyData) => {
   let swellDatasets = {};
   const dates = [];
   const waterTemps = [];
-  buoyData.forEach(datapoint => {
+  buoyData.forEach((datapoint) => {
     const date = new Date(datapoint.timestamp * 1000);
     // There is often duplicate data at 40 and 50 minute marks, so only use one.
     if (date.getMinutes() === 40) return;
@@ -66,7 +80,7 @@ const createLiveBuoyChart = (buoy, buoyData) => {
       y: datapoint.height,
     });
     // Add a data point for each individual swell.
-    datapoint.swells.forEach(swell => {
+    datapoint.swells.forEach((swell) => {
       const approximateDirection = swell.direction >= 240 ? 'W' : 'S';
       const swellType = periodToSwellType(swell.period);
       const compassDirection = degreeToCompass(swell.direction);
@@ -86,13 +100,13 @@ const createLiveBuoyChart = (buoy, buoyData) => {
         };
       }
       // Only keep the largest datapoint for each swell type + timestamp.
-      const existingDatapoint = swellDatasets[key].data.find(dp => dp.x === date);
+      const existingDatapoint = swellDatasets[key].data.find((dp) => dp.x === date);
       if (existingDatapoint) {
         if (existingDatapoint.height >= swell.height) {
           return;
         } else if (existingDatapoint.height < swell.height) {
           swellDatasets[key].data.splice(swellDatasets[key].data.indexOf(existingDatapoint));
-        };
+        }
       }
 
       // Add the datapoint to the dataset.
@@ -100,19 +114,21 @@ const createLiveBuoyChart = (buoy, buoyData) => {
         x: date,
         y: swell.height,
         label: `${swell.period}s - ${compassDirection} (${swell.direction}°)`,
-        ...swell
+        ...swell,
       });
     });
   });
   swellDatasets = Object.values(swellDatasets);
-  swellDatasets.map(dataset => {
-    const minDir = Math.min(...dataset.data.map(swell => swell.direction));
-    const maxDir = Math.max(...dataset.data.map(swell => swell.direction));
-    dataset.label = `${periodToSwellType(dataset.data[0].period).displayName} | ${degreeToCompass(minDir)} (${minDir}°) - ${degreeToCompass(maxDir)} (${maxDir}°)`
+  swellDatasets.map((dataset) => {
+    const minDir = Math.min(...dataset.data.map((swell) => swell.direction));
+    const maxDir = Math.max(...dataset.data.map((swell) => swell.direction));
+    dataset.label = `${periodToSwellType(dataset.data[0].period).displayName} | ${degreeToCompass(
+      minDir
+    )} (${minDir}°) - ${degreeToCompass(maxDir)} (${maxDir}°)`;
     dates.forEach((date, index) => {
-      const existingDatapoint = dataset.data.find(dp => dp.x === date);
+      const existingDatapoint = dataset.data.find((dp) => dp.x === date);
       if (!existingDatapoint) dataset.data.splice(index, 0, { x: date, y: NaN });
-    })
+    });
     return dataset;
   });
   createAndAttachChart(buoy, [combinedHeightDataset, ...swellDatasets]);
@@ -123,7 +139,7 @@ const createAndAttachLatestSwellReadings = (buoy, dates, swellDatasets, waterTem
   const date = dates[0];
   const lastUpdatedDate = date.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
   $(`#latestSwellReadings-${buoy.id}`).prepend(`<li class='updated-at'>Last update: ${lastUpdatedDate}</li>`);
-  swellDatasets.forEach(dataset => {
+  swellDatasets.forEach((dataset) => {
     const datapoint = dataset.data[0];
     if (datapoint.x === date && datapoint.y) {
       $(`#latestSwellReadings-${buoy.id}`).append(`
@@ -155,22 +171,22 @@ const createAndAttachChart = (buoy, datasets) => {
           time: {
             unit: 'hour',
             displayFormats: {
-              hour: 'ccc h a'
+              hour: 'ccc h a',
             },
-            tooltipFormat: "cccc M/d - h:mm a",
-            stepSize: 4
-          }
+            tooltipFormat: 'cccc M/d - h:mm a',
+            stepSize: 4,
+          },
         },
         y: {
           beginAtZero: true,
           ticks: {
-            callback: (value, _index, _values) => `${value}ft`
+            callback: (value, _index, _values) => `${value}ft`,
           },
-        }
+        },
       },
       interaction: {
         mode: 'index',
-        intersect: false
+        intersect: false,
       },
       plugins: {
         title: {
@@ -182,31 +198,31 @@ const createAndAttachChart = (buoy, datasets) => {
         },
         tooltip: {
           callbacks: {
-            labelColor: context => {
-              const { borderColor, backgroundColor } = {...context.dataset};
+            labelColor: (context) => {
+              const { borderColor, backgroundColor } = { ...context.dataset };
               return {
                 borderWidth: 1,
                 borderColor,
                 backgroundColor,
-              }
+              };
             },
-            label: context => {
+            label: (context) => {
               let label = `${context.parsed.y}ft`;
               if (context.raw.label) {
-                label += ` @ ${context.raw.label}`
+                label += ` @ ${context.raw.label}`;
               } else {
-                label += ' Combined Height'
-              };
+                label += ' Combined Height';
+              }
               return label;
-            }
-          }
+            },
+          },
         },
-      }
-    }
+      },
+    },
   });
-}
+};
 
-const periodToSwellType = period => {
+const periodToSwellType = (period) => {
   if (period <= 6) {
     return { key: 'spws', displayName: 'Short Period Windswell', color: '#0000ff' };
   } else if (period <= 9) {
@@ -220,15 +236,32 @@ const periodToSwellType = period => {
   }
 };
 
-const degreeToCompass = deg => {
-  const val = Math.floor((deg / 22.5) + 0.5);
-  const directions = ['N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW'];
-  return directions[(val % 16)];
+const degreeToCompass = (deg) => {
+  const val = Math.floor(deg / 22.5 + 0.5);
+  const directions = [
+    'N',
+    'NNE',
+    'NE',
+    'ENE',
+    'E',
+    'ESE',
+    'SE',
+    'SSE',
+    'S',
+    'SSW',
+    'SW',
+    'WSW',
+    'W',
+    'WNW',
+    'NW',
+    'NNW',
+  ];
+  return directions[val % 16];
 };
 
 const verticalLineChartPlugin = {
   id: 'verticalLine',
-  afterDraw: chart => {
+  afterDraw: (chart) => {
     if (chart.tooltip?._active?.length) {
       let x = chart.tooltip._active[0].element.x;
       let yAxis = chart.scales.y;
@@ -242,5 +275,5 @@ const verticalLineChartPlugin = {
       ctx.stroke();
       ctx.restore();
     }
-  }
+  },
 };
