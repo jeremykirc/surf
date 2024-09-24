@@ -1,8 +1,28 @@
 $(document).ready(() => {
+  addBuoyForecastImages();
   generateLiveBuoyCharts();
 });
 
 window.surfJsLoaded = true;
+
+const addBuoyForecastImages = () => {
+  $('#eastBuoy1').attr(
+    'src',
+    `https://wsrv.nl?url=stormsurf.com/4cast/graphics/gfswave.46053.bull.4.png?disable_cache=${Date.now()}`
+  );
+  $('#eastBuoy2').attr(
+    'src',
+    `https://wsrv.nl?url=stormsurf.com/4cast/graphics/gfswave.46053.bull.5.png?disable_cache=${Date.now()}`
+  );
+  $('#westBuoy1').attr(
+    'src',
+    `https://wsrv.nl?url=stormsurf.com/4cast/graphics/gfswave.46054.bull.4.png?disable_cache=${Date.now()}`
+  );
+  $('#santaMonicaBuoy1').attr(
+    'src',
+    `https://wsrv.nl?url=stormsurf.com/4cast/graphics/gfswave.46025.bull.4.png?disable_cache=${Date.now()}`
+  );
+};
 
 const fetchBuoyData = async (buoyUuid) => {
   let days = 3;
