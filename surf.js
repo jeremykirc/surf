@@ -38,7 +38,7 @@ const generateLiveBuoyCharts = async () => {
     { id: '46053', uuid: '9897640a-cecd-11eb-a2c9-024238d3b313', displayName: 'East Santa Barbara' },
     { id: '46054', uuid: '56d24394-cecc-11eb-ab23-024238d3b313', displayName: 'West Santa Barbara' },
     { id: '46218', uuid: 'c795cab8-cecc-11eb-84e7-024238d3b313', displayName: 'Harvest' },
-    { id: '46006', uuid: 'a03ee0b8-cecd-11eb-834b-024238d3b313', displayName: 'Southeast Papa - NorCal Open Ocean' },
+    { id: '46059', uuid: '7e932ed8-54b8-11ec-84b6-06dc30ac5823', displayName: 'West California - NorCal Open Ocean' },
     { id: '46025', uuid: '1b3c155c-cecc-11eb-bbec-024238d3b313', displayName: 'Santa Monica Basin - LA' },
     { id: '46086', uuid: '62dfcbfe-cecc-11eb-a7ce-024238d3b313', displayName: 'San Clemente Basin - OC' },
   ];
